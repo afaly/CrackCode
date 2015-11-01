@@ -1,4 +1,4 @@
-package hard;
+package GreatEscape;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;

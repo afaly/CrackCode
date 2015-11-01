@@ -3,26 +3,22 @@ package easy;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-/**
- * Auto-generated code below aims at helping you parse the standard input
- * according to the problem statement.
- **/
-class M implements Comparable<M> {
+class Mountains implements Comparable<Mountains> {
 	int id;
 	int dist;
 
-	public M(int id, int dist) {
+	public Mountains(int id, int dist) {
 		this.id = id;
 		this.dist = dist;
 	}
 
 	@Override
-	public int compareTo(M m) {
-		return dist - m.dist;
+	public int compareTo(Mountains m) {
+		return m.dist - dist;
 	}
 }
 
-class Mountains {
+public class TheDescent {
 
 	public static void main(String args[]) {
 		Scanner in = new Scanner(System.in);
@@ -31,14 +27,14 @@ class Mountains {
 		while (true) {
 			int SX = in.nextInt();
 			int SY = in.nextInt();
-			PriorityQueue<M> pq = new PriorityQueue<M>();
+			PriorityQueue<Mountains> pq = new PriorityQueue<Mountains>();
 			String order = "";
 			for (int i = 0; i < 8; i++) {
-				pq.offer(new M(i, in.nextInt()));
+				pq.offer(new Mountains(i, in.nextInt()));
 			}
 			boolean cont = true;
 			while (!pq.isEmpty() && cont) {
-				M top = pq.poll();
+				Mountains top = pq.poll();
 				if (top.id == SX) {
 					order = "FIRE";
 					cont = false;
@@ -55,11 +51,12 @@ class Mountains {
 					}
 				}
 			}
-			if (SX == 7)
-				right = false;
-			if (SX == 0)
-				right = true;
+			if (SX == 7) right = false;
+			if (SX == 0) right = true;
+
 			System.out.println(order);
+
+			in.close();
 		}
 	}
 }

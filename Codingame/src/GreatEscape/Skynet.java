@@ -1,4 +1,4 @@
-package easy;
+package GreatEscape;
 
 import java.util.HashSet;
 import java.util.LinkedList;

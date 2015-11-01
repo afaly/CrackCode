@@ -4,10 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-/**
- * Auto-generated code below aims at helping you parse the standard input
- * according to the problem statement.
- **/
 public class Winamax {
 
 	public static int getValue(String s) {
@@ -15,14 +11,10 @@ public class Winamax {
 		try {
 			val = Integer.parseInt(s);
 		} catch (Exception e) {
-			if (s.equalsIgnoreCase("J"))
-				val = 11;
-			else if (s.equalsIgnoreCase("Q"))
-				val = 12;
-			else if (s.equalsIgnoreCase("K"))
-				val = 13;
-			else if (s.equalsIgnoreCase("A"))
-				val = 14;
+			if (s.equalsIgnoreCase("J")) val = 11;
+			else if (s.equalsIgnoreCase("Q")) val = 12;
+			else if (s.equalsIgnoreCase("K")) val = 13;
+			else if (s.equalsIgnoreCase("A")) val = 14;
 		}
 		return val;
 	}
@@ -59,8 +51,7 @@ public class Winamax {
 				winner = 1;
 				fight = false;
 			} else {
-				if (!isWar)
-					games++;
+				if (!isWar) games++;
 				int v1 = p1.poll();
 				int v2 = p2.poll();
 				t1.add(v1);
@@ -92,11 +83,8 @@ public class Winamax {
 			}
 		}
 
-		if (winner == 1)
-			System.out.println(winner + " " + games);
-		else if (winner == 2)
-			System.out.println(winner + " " + games);
-		else
-			System.out.println("PAT");
+		if (winner == 1) System.out.println(winner + " " + games);
+		else if (winner == 2) System.out.println(winner + " " + games);
+		else System.out.println("PAT");
 	}
 }
