@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="Codeforces"/>
+	<classpathentry kind="src" path="CodingGame"/>
+	<classpathentry kind="src" path="HackerRank"/>
+	<classpathentry kind="src" path="Train"/>
+	<classpathentry kind="src" path="DataStructuers"/>
+	<classpathentry kind="src" path="AlgorithmsDesignPartII"/>
+	<classpathentry kind="src" path="Dynamic Programming"/>
+	<classpathentry kind="src" path="codejam"/>
+	<classpathentry kind="src" path="CrackCodeInterview"/>
+	<classpathentry kind="src" path="Youtube"/>
+	<classpathentry kind="src" path="CodeChef"/>
+	<classpathentry kind="src" path="CareerCup"/>
+	<classpathentry kind="src" path="Graphs"/>
+	<classpathentry kind="src" path="Greedy"/>
+	<classpathentry kind="src" path="UVA"/>
+	<classpathentry kind="src" path="InterviewBit"/>
+	<classpathentry kind="src" path="spoj"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="libs/algs4-package.jar"/>
+	<classpathentry kind="lib" path="libs/stdlib-package.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
