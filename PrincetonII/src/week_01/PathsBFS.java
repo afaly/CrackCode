@@ -30,7 +30,7 @@ public class PathsBFS implements Paths {
 		int dist = 0;
 		while (!queue.isEmpty()) {
 			dist++;
-			for (int sz = queue.size(); sz >= 0; sz--) {
+			for (int sz = queue.size(); sz > 0; sz--) {
 				Integer cur = queue.poll();
 				vis[cur] = true;
 				for (Edge nxt : graph.adj(cur)) {
