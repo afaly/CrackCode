@@ -12,6 +12,8 @@ public interface Graph {
 
 	public Iterable<Edge> adj(int src);
 
-	public int degree(int src);
+	public int InDegree(int src);
+
+	public int OutDegree(int src);
 
 }

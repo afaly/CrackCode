@@ -40,8 +40,13 @@ public class Digraph implements Graph {
 	}
 
 	@Override
-	public int degree(int src) {
+	public int OutDegree(int src) {
 		return this.graph[src].size();
+	}
+
+	@Override
+	public int InDegree(int src) {
+		return 0;
 	}
 
 }

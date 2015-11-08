@@ -42,7 +42,12 @@ public class UnDigraph implements Graph {
 	}
 
 	@Override
-	public int degree(int src) {
+	public int InDegree(int src) {
+		return this.graph[src].size();
+	}
+
+	@Override
+	public int OutDegree(int src) {
 		return this.graph[src].size();
 	}
 
