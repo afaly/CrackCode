@@ -1,12 +1,12 @@
 package week_01;
 
-public class UnDirectedGraph implements Graph {
+public class Digraph implements Graph {
 
 	private Bag[] graph;
 	private final int V;
 	private int E;
 
-	public UnDirectedGraph(int V) {
+	public Digraph(int V) {
 		this.V = V;
 		this.E = 0;
 		this.graph = new Bag[V];
@@ -27,13 +27,11 @@ public class UnDirectedGraph implements Graph {
 	@Override
 	public void addEdge(int src, int dst) {
 		if (this.graph[src].add(dst)) E++;
-		if (this.graph[dst].add(src)) E++;
 	}
 
 	@Override
 	public void addEdge(int src, int dst, double val) {
 		if (this.graph[src].add(dst, val)) E++;
-		if (this.graph[dst].add(src, val)) E++;
 	}
 
 	@Override

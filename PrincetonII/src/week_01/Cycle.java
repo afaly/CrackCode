@@ -43,7 +43,7 @@ public class Cycle {
 	}
 
 	public static void main(String[] args) {
-		Graph g = new UnDirectedGraph(7);
+		Graph g = new UnDigraph(7);
 		g.addEdge(0, 1);
 		// g.addEdge(0, 2);
 		// g.addEdge(0, 5);
