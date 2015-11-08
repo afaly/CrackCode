@@ -12,18 +12,18 @@ public class ConnectedComponents {
 		this.mark = 0;
 		boolean[] vis = new boolean[graph.V()];
 		for (int node = 0; node < graph.V(); node++) {
-			if (!vis[node]) DFS(node, vis, ++mark);
+			if (!vis[node]) {
+				mark++;
+				DFS(node, vis);
+			}
 		}
 	}
 
-	private void DFS(Integer cur, boolean[] vis, Integer mark) {
+	private void DFS(Integer cur, boolean[] vis) {
 		vis[cur] = true;
-		for (Edge nxt : graph.adj(cur)) {
-			if (!vis[nxt.dst()]) {
-				cc[nxt.dst()] = mark;
-				DFS(nxt.dst(), vis, mark);
-			}
-		}
+		cc[cur] = mark;
+		for (Edge nxt : graph.adj(cur))
+			if (!vis[nxt.dst()]) DFS(nxt.dst(), vis);
 	}
 
 	public boolean connected(Integer a, Integer b) {
