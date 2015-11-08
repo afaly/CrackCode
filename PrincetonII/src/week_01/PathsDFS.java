@@ -5,37 +5,42 @@ import java.util.Stack;
 
 public class PathsDFS implements Paths {
 
-	private final Graph graph;
 	private final Integer src;
-	private Integer[] expFrom;
+	private Integer[] prnt;
 
-	public PathsDFS(Graph G, Integer src) {
-		this.graph = G;
+	public PathsDFS(Graph graph, Integer src) {
 		this.src = src;
-		this.expFrom = new Integer[graph.V()];
-		DFS(src, new boolean[graph.V()]);
+		this.prnt = new Integer[graph.V()];
+		DFS(graph, src);
 	}
 
-	private void DFS(Integer cur, boolean[] vis) {
-		vis[cur] = true;
-		for (Edge nxt : graph.adj(cur)) {
-			if (!vis[nxt.dst()]) {
-				expFrom[nxt.dst()] = cur;
-				DFS(nxt.dst(), vis);
+	private void DFS(Graph graph, Integer src) {
+		boolean[] vist = new boolean[graph.V()];
+		Stack<Integer> stack = new Stack<Integer>();
+		stack.push(src);
+		vist[src] = true;
+		while (!stack.isEmpty()) {
+			Integer cur = stack.pop();
+			for (Edge nxt : graph.adj(cur)) {
+				if (!vist[nxt.dst()]) {
+					vist[nxt.dst()] = true;
+					prnt[nxt.dst()] = cur;
+					stack.push(nxt.dst());
+				}
 			}
 		}
 	}
 
 	@Override
 	public boolean hasPathTo(Integer dst) {
-		return dst == src || expFrom[dst] != null;
+		return dst == src || prnt[dst] != null;
 	}
 
 	@Override
 	public Iterable<Integer> getPathTo(Integer dst) {
 		if (!hasPathTo(dst)) return null;
 		Stack<Integer> stack = new Stack<Integer>();
-		for (Integer node = dst; node != src; node = expFrom[node])
+		for (Integer node = dst; node != src; node = prnt[node])
 			stack.push(node);
 		ArrayList<Integer> path = new ArrayList<Integer>();
 		path.add(src);

@@ -3,40 +3,69 @@ package week_01;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
 public class PathsBFS implements Paths {
 
-	private final Graph graph;
-	private final Integer src;
-	private Integer[] expFrom;
-	private Integer[] hopsFromSrc;
+	private static final int INFINITY = Integer.MAX_VALUE;
+	private Integer[] prnt, dist;
 
-	public PathsBFS(Graph G, Integer src) {
-		this.graph = G;
-		this.src = src;
-		this.expFrom = new Integer[graph.V()];
-		this.hopsFromSrc = new Integer[graph.V()];
-		Arrays.fill(hopsFromSrc, Integer.MAX_VALUE);
-		hopsFromSrc[src] = 0;
-		BFS();
+	public PathsBFS(Graph graph, Integer src) {
+		this.prnt = new Integer[graph.V()];
+		this.dist = new Integer[graph.V()];
+		Arrays.fill(dist, INFINITY);
+		dist[src] = 0;
+		prnt[src] = src;
+		BFS(graph, src);
 	}
 
-	private void BFS() {
-		boolean[] vis = new boolean[graph.V()];
+	public PathsBFS(Graph graph, List<Integer> src) {
+		this.prnt = new Integer[graph.V()];
+		this.dist = new Integer[graph.V()];
+		Arrays.fill(dist, INFINITY);
+		for (Integer node : src) {
+			dist[node] = 0;
+			prnt[node] = node;
+		}
+		BFS(graph, src);
+	}
+
+	private void BFS(Graph graph, Integer src) {
 		Queue<Integer> queue = new LinkedList<Integer>();
+		boolean[] vist = new boolean[graph.V()];
 		queue.add(src);
-		int dist = 0;
-		while (!queue.isEmpty()) {
-			dist++;
+		vist[src] = true;
+		for (int hops = 1; !queue.isEmpty(); hops++) {
 			for (int sz = queue.size(); sz > 0; sz--) {
 				Integer cur = queue.poll();
-				vis[cur] = true;
 				for (Edge nxt : graph.adj(cur)) {
-					if (!vis[nxt.dst()]) {
-						expFrom[nxt.dst()] = cur;
-						hopsFromSrc[nxt.dst()] = dist;
+					if (!vist[nxt.dst()]) {
+						vist[nxt.dst()] = true;
+						dist[nxt.dst()] = hops;
+						prnt[nxt.dst()] = cur;
+						queue.add(nxt.dst());
+					}
+				}
+			}
+		}
+	}
+
+	private void BFS(Graph graph, List<Integer> src) {
+		Queue<Integer> queue = new LinkedList<Integer>();
+		boolean[] vist = new boolean[graph.V()];
+		queue.addAll(src);
+		for (Integer node : src)
+			vist[node] = true;
+		for (int hops = 1; !queue.isEmpty(); hops++) {
+			for (int sz = queue.size(); sz > 0; sz--) {
+				Integer cur = queue.poll();
+				vist[cur] = true;
+				for (Edge nxt : graph.adj(cur)) {
+					if (!vist[nxt.dst()]) {
+						prnt[nxt.dst()] = cur;
+						dist[nxt.dst()] = hops;
 						queue.add(nxt.dst());
 					}
 				}
@@ -46,24 +75,25 @@ public class PathsBFS implements Paths {
 
 	@Override
 	public boolean hasPathTo(Integer dst) {
-		return src == dst || expFrom[dst] != null;
+		return prnt[dst] != null;
 	}
 
 	@Override
 	public Iterable<Integer> getPathTo(Integer dst) {
 		if (!hasPathTo(dst)) return null;
 		Stack<Integer> stack = new Stack<Integer>();
-		for (Integer node = dst; node != src; node = expFrom[node])
+		Integer node = dst;
+		for (; node != prnt[node]; node = prnt[node])
 			stack.push(node);
 		ArrayList<Integer> path = new ArrayList<Integer>();
-		path.add(src);
+		path.add(node);
 		while (!stack.isEmpty())
 			path.add(stack.pop());
 		return path;
 	}
 
-	public Integer numOfHops(Integer dst) {
-		return hopsFromSrc[dst];
+	public Integer numOfHopsTo(Integer dst) {
+		return dist[dst];
 	}
 
 }
