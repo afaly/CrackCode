@@ -102,6 +102,16 @@ public class WordNet {
 
 	// do unit testing of this class
 	public static void main(String[] args) {
-
+		String s = "wordnet/synsets100-subgraph.txt";
+		String h = "wordnet/hypernyms100-subgraph.txt";
+		WordNet w = new WordNet(s, h);
+		for (String n : w.nouns()) {
+			for (String m : w.nouns()) {
+				int dist = w.distance(n, m);
+				String prnt = w.sap(n, m);
+				System.out.println("|" + n + " - " + m + "| = " + dist
+						+ "\t\t " + prnt);
+			}
+		}
 	}
 }
