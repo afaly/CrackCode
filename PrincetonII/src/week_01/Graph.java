@@ -16,4 +16,6 @@ public interface Graph {
 
 	public int OutDegree(int src);
 
+	public Graph reverse();
+
 }

@@ -1,9 +1,11 @@
 package assig_01;
 
 import java.util.Map;
-import java.util.Scanner;
 
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
 
 public class SAP {
 
@@ -93,21 +95,17 @@ public class SAP {
 
 	// do unit testing of this class
 	public static void main(String[] args) {
-		Scanner r = new Scanner(System.in);
-		int V = I(r.nextLine()), E = I(r.nextLine());
-		Digraph g = new Digraph(V);
-		for (int i = 0; i < E; i++) {
-			String[] s = r.nextLine().trim().split("\\s+");
-			g.addEdge(I(s[0]), I(s[1]));
+		args = new String[1];
+		args[0] = "wordnet/digraph1.txt";
+		In in = new In(args[0]);
+		Digraph G = new Digraph(in);
+		SAP sap = new SAP(G);
+		while (!StdIn.isEmpty()) {
+			int v = StdIn.readInt();
+			int w = StdIn.readInt();
+			int length = sap.length(v, w);
+			int ancestor = sap.ancestor(v, w);
+			StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
 		}
-		SAP s = new SAP(g);
-		System.out.println(s.length(3, 11) + " throw node : "
-				+ s.ancestor(3, 11));
-		System.out
-				.println(s.length(4, 5) + " throw node : " + s.ancestor(4, 5));
-
-		System.out.println(s.length(10, 11) + " throw node : "
-				+ s.ancestor(10, 11));
-		r.close();
 	}
 }

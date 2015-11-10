@@ -49,4 +49,14 @@ public class Digraph implements Graph {
 		return 0;
 	}
 
+	@Override
+	public Graph reverse() {
+		Graph r = new Digraph(V());
+		for (Integer n = 0; n < V(); n++) {
+			for (Edge e : adj(n)) {
+				r.addEdge(e.dst(), n, e.val());
+			}
+		}
+		return r;
+	}
 }

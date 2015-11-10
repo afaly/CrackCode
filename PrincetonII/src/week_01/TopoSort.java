@@ -4,21 +4,19 @@ import java.util.Stack;
 
 public class TopoSort {
 
-	private Stack<Integer> order;
-
-	public Iterable<Integer> Sort(Digraph graph) {
-		this.order = new Stack<Integer>();
-		DFS(graph, 0, new boolean[graph.V()]);
+	public static Iterable<Integer> Sort(Digraph graph) {
+		Stack<Integer> order = new Stack<Integer>();
+		DFS(graph, 0, new boolean[graph.V()], order);
 		return order;
 	}
 
-	private void DFS(Graph graph, Integer cur, boolean[] vist) {
+	private static void DFS(Graph graph, Integer cur, boolean[] vist,
+			Stack<Integer> order) {
 		vist[cur] = true;
 		for (Edge nxt : graph.adj(cur)) {
 			vist[nxt.dst()] = true;
-			DFS(graph, nxt.dst(), vist);
+			DFS(graph, nxt.dst(), vist, order);
 		}
 		order.push(cur);
 	}
-
 }

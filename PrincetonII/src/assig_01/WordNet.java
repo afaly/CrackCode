@@ -11,10 +11,12 @@ import edu.princeton.cs.algs4.In;
 //All methods and the constructor should throw a java.lang.NullPointerException if any argument is null
 public class WordNet {
 
-	private Map<String, Integer> nounsMap;
-	private List<String> revNounMap;
-	private Digraph wordnet;
 	private Integer numOfSynsets;
+	private Digraph wordnet;
+	private SAP sap;
+
+	private Map<String, List<Integer>> nounsMap;
+	private List<String> revNounMap;
 
 	// constructor takes the name of the two input files
 	public WordNet(String synsets, String hypernyms) {
@@ -23,11 +25,16 @@ public class WordNet {
 		if (hypernyms == null) throw new NullPointerException(
 				"Hypernyms cann't be Null.");
 
-		nounsMap = new HashMap<String, Integer>();
-		revNounMap = new ArrayList<String>();
-		numOfSynsets = readSynsets(synsets);
-		wordnet = new Digraph(numOfSynsets);
+		this.nounsMap = new HashMap<String, List<Integer>>();
+		this.revNounMap = new ArrayList<String>();
+		this.numOfSynsets = readSynsets(synsets);
+		this.wordnet = new Digraph(numOfSynsets);
 		readHypernyms(hypernyms);
+		if (!DiCycle.check(wordnet)) throw new IllegalArgumentException(
+				"Not a valid DAG");
+		if (!DiRoot.check(wordnet)) throw new IllegalArgumentException(
+				"Not a valid DAG");
+		this.sap = new SAP(wordnet);
 	}
 
 	private Integer readSynsets(String synsets) {
@@ -38,8 +45,11 @@ public class WordNet {
 			Integer id = Integer.parseInt(data[0]);
 			revNounMap.add(data[1]);
 			String[] synset = data[1].split("\\s+");
-			for (String noun : synset)
-				nounsMap.put(noun, id);
+			for (String noun : synset) {
+				if (!nounsMap.containsKey(noun)) nounsMap.put(noun,
+						new ArrayList<Integer>());
+				nounsMap.get(noun).add(id);
+			}
 			numOfSynsets++;
 		}
 
@@ -80,8 +90,7 @@ public class WordNet {
 				"First String is not a valid noun.");
 		if (!isNoun(nounB)) throw new IllegalArgumentException(
 				"Second String is not a valid noun.");
-		return new SAP(wordnet)
-				.length(nounsMap.get(nounA), nounsMap.get(nounB));
+		return sap.length(nounsMap.get(nounA), nounsMap.get(nounB));
 	}
 
 	// a synset (second field of synsets.txt) that is the common ancestor of
@@ -96,7 +105,7 @@ public class WordNet {
 				"First String is not a valid noun.");
 		if (!isNoun(nounB)) throw new IllegalArgumentException(
 				"Second String is not a valid noun.");
-		return revNounMap.get(new SAP(wordnet).ancestor(nounsMap.get(nounA),
+		return revNounMap.get(sap.ancestor(nounsMap.get(nounA),
 				nounsMap.get(nounB)));
 	}
 

@@ -51,4 +51,8 @@ public class UnDigraph implements Graph {
 		return this.graph[src].size();
 	}
 
+	@Override
+	public Graph reverse() {
+		return this;
+	}
 }
