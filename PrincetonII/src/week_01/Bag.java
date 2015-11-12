@@ -6,9 +6,11 @@ import java.util.Iterator;
 public class Bag implements Iterable<Edge> {
 
     private HashSet<Edge> adj;
+    private int src;
 
-    public Bag() {
+    public Bag(int source) {
         this.adj = new HashSet<Edge>();
+        this.src = source;
     }
 
     public boolean add(Edge edge) {
@@ -20,8 +22,12 @@ public class Bag implements Iterable<Edge> {
         }
     }
 
+    public int src() {
+        return src;
+    }
+
     public boolean add(int dst) {
-        Edge edge = new Edge(dst);
+        Edge edge = new Edge(src, dst);
         if (this.adj.contains(edge)) {
             return false;
         } else {
@@ -31,7 +37,7 @@ public class Bag implements Iterable<Edge> {
     }
 
     public boolean add(int dst, double val) {
-        Edge edge = new Edge(dst, val);
+        Edge edge = new Edge(src, dst, val);
         if (this.adj.contains(edge)) {
             return false;
         } else {

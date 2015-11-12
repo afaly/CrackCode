@@ -2,21 +2,33 @@ package week_01;
 
 public class Edge {
 
-	private int dst;
+	private int src, dst;
 	private double val;
 
-	public Edge(int dst) {
+	public Edge(int src, int dst) {
 		this.dst = dst;
 		this.val = 0.0;
 	}
 
-	public Edge(int dst, double val) {
+	public Edge(int src, int dst, double val) {
 		this.dst = dst;
 		this.val = val;
 	}
 
 	public int dst() {
 		return dst;
+	}
+
+	public int src() {
+		return src;
+	}
+
+	public int either() {
+		return src;
+	}
+
+	public int other(int v) {
+		return v == src ? dst : src;
 	}
 
 	public double val() {
