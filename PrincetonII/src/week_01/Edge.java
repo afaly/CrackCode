@@ -2,15 +2,17 @@ package week_01;
 
 public class Edge {
 
-    private int src, dst;
-    private double val;
+    private final int src, dst;
+    private final double val;
 
     public Edge(int src, int dst) {
+        this.src = src;
         this.dst = dst;
         this.val = 0.0;
     }
 
     public Edge(int src, int dst, double val) {
+        this.src = src;
         this.dst = dst;
         this.val = val;
     }
