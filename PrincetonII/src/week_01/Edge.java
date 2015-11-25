@@ -1,6 +1,6 @@
 package week_01;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 
     private final int src, dst;
     private final double val;
@@ -42,6 +42,7 @@ public class Edge {
         final int prime = 31;
         int result = 1;
         result = prime * result + dst;
+        result = prime * result + src;
         long temp;
         temp = Double.doubleToLongBits(val);
         result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -55,6 +56,7 @@ public class Edge {
         if (!(obj instanceof Edge)) return false;
         Edge other = (Edge) obj;
         if (dst != other.dst) return false;
+        if (src != other.src) return false;
         if (Double.doubleToLongBits(val) != Double.doubleToLongBits(other.val)) return false;
         return true;
     }
@@ -62,6 +64,13 @@ public class Edge {
     @Override
     public String toString() {
         return "Edge [" + src + " -> " + dst + "= " + val + "]";
+    }
+
+    @Override
+    public int compareTo(Edge that) {
+        if (this.val < that.val) return -1;
+        else if (this.val > that.val) return +1;
+        else return 0;
     }
 
 }

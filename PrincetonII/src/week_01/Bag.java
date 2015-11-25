@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class Bag implements Iterable<Edge> {
 
     private HashSet<Edge> adj;
-    private int src;
+    private final int src;
 
     public Bag(int source) {
         this.adj = new HashSet<Edge>();
